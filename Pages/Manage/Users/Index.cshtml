@@ -1,0 +1,136 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Users.Index
+@{
+}
+<h3 class="text-lg-center">PATIENT INFORMATION</h3>
+
+<div class="row">
+    <div class="search">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control" placeholder="Search" id="search">
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3">
+        <div class="form-group">
+            <label for="">Sort By</label>
+            <select class="form-control" id="sortBy" asp-for="View.Users.SortBy">
+                <option value="">choose</option>
+                <option value="">choose</option>
+                <option value="name">FirstName</option>
+                <option value="description">LastName</option>
+                <option value="abbreviation">Address</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label for="">Sort Order</label>
+            <select class="form-control" id="sortOrder" asp-for="View.Users.SortOrder">
+                <option value="1">Ascending</option>
+                <option value="2">Descending</option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@{
+    if (Model.View != null && Model.View.Users != null && Model.View.Users.Items != null && Model.View.Users.Items.Count > 0)
+    {
+        <table class="table table-bordered ">
+            <thead class="thead-gray">
+                <tr class="table-dark">
+                    <th scope="col">Email</th>
+                    <th scope="col">FirstName</th>
+                    <th scope="col">MiddleName</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">BirthDate</th>
+                    <th scope="col">Contact No</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Actions</th>
+                    
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var user in Model?.View?.Users.Items)
+                    {
+                        <tr class="table-light">
+                            <th scope="row">@user.Email</th>
+                            <th scope="row">@user.FirstName</th>
+                            <td>@user.MiddleName</td>
+                            <td>@user.LastName</td>
+                            <td>@user.Gender</td>
+                            <td>@user.BirthDate</td>
+                            <td>@user.ContactNo</td>
+                            <td>@user.Address</td>
+                            <td>
+                                <a href="#" class="view" title="View" data-toggle="tooltip">View<i class="material-icons">&#xE417;</i></a>
+                                <a href="#" class="edit" title="Edit" data-toggle="tooltip">Edit<i class="material-icons">&#xE254;</i></a>
+                                <a href="#" class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-2">
+                <a href="~/manage/users/create" class="btn btn-light">Add New User</a>
+            </div>
+        </div>
+
+
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @{
+                    if (Model?.View?.Users.PageIndex > 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="/manage/patients?pageIndex=@(Model?.View?.Users.PageIndex-1)&pageSize=@(Model?.View?.Users.PageSize)&sortBy=@(Model?.View?.Users.SortBy)&sortOrder=@(Model?.View?.Users.SortOrder)">Previous</a></li>
+                    }
+
+                    <li class="page-item"><span class="page-link">page @Model?.View?.Users.PageIndex of @Model?.View?.Users.PageCount (@Model?.View?.Users.TotalRows total rows)</span></li>
+
+
+                    if (Model?.View?.Users.PageIndex < Model?.View?.Users.PageCount)
+                    {
+                        <li class="page-item"><a class="page-link" href="/manage/patients?pageIndex=@(Model?.View?.Users.PageIndex+1)&pageSize=@(Model?.View?.Users.PageSize)&sortBy=@(Model?.View?.Users.SortBy)&sortOrder=@(Model?.View?.Users.SortOrder)">Next</a></li>
+                    }
+                }
+            </ul>
+        </nav>
+    }
+    else
+    {
+        <div>There are no records to show.</div>
+    }
+}
+
+@section Scripts
+    {
+    <script>
+        $("#search").keyup(function (event) {
+            if (event.keyCode === 13) {
+                window.location = "/manage/Users?keyword=" + $("#search").val();
+            }
+        });
+
+        $("#sortBy").change(function () {
+            window.location = "/manage/Users?keyword=@(Model.View.Users.Keyword)&sortBy=" + $("#sortBy").val() + "&sortOrder=" + $("#sortOrder").val();
+        });
+
+        $("#sortOrder").change(function () {
+            window.location = "/manage/Users?keyword=@(Model.View.Users.Keyword)&sortBy=" + $("#sortBy").val() + "&sortOrder=" + $("#sortOrder").val();
+        });
+    </script>
+}

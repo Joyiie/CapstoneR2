@@ -1,0 +1,36 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Prescriptions.Index
+
+@{
+     <h2>Prescription</h2>
+    if (Model.View != null && Model.View.Prescriptions != null && Model.View.Prescriptions.Count > 0)
+    {
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Tags</th>
+                    <th scope="col">Description</th>
+                   
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var prescription in Model?.View?.Prescriptions)
+                    {
+                        <tr>
+                            <th scope="row">@prescription.Tags</th>
+                            <td>@prescription.Description</td>
+                            <td>
+                                <a href="~/manage/prescriptions/pupdate?id=@prescription.ID" class="btn btn-secondary">
+                                    <i class="fa fa-pencil">Edit</i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+  }
+

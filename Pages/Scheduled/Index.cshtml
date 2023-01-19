@@ -1,0 +1,38 @@
+﻿@page
+@model CapstoneR2.Pages.Scheduled.Index
+@{
+    <h2>USERS</h2>
+    if (Model.View != null && Model.View.Appointments != null && Model.View.Appointments.Count > 0)
+    {
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Appointment Id</th>
+                    <th scope="col">Patient Id</th>
+                    <th scope="col">Start Time </th>
+                    <th scope="col">End Time</th>
+                    <th scope="col">Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var appointment in Model?.View?.Appointments)
+                    {
+                        <tr>
+                            <th>@appointment.ID
+                            <th>
+                            <td>@appointment.PatientID</td>
+                            <td>@appointment.StartTime</td>
+                            <td>@appointment.EndTime</td>
+                            <td>@appointment.Description</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}
+
+   
+
+

@@ -1,0 +1,51 @@
+﻿@page
+@model CapstoneR2.Pages.Dashboard.AdminModel
+@using CapstoneR2.Infrastructure.Domain.Security;
+@{
+}
+<div class="container">
+
+    <h2 class="text-center btn-lg">ADMIN DASHBOARD</h2>
+    <h1 class="text-lg-start btn-lg">WELCOME! @this.User.Name() @this.User.Role()</h1>
+
+    <div class="row">
+
+        <div class="container col-4">
+
+            <div class="row">
+
+                <div class="row">
+                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Add New User</a>
+                </div>
+
+                <div class="row">
+                    <a href="~/manage/patients/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Add New Patient</a>
+                </div>
+                <div class="row">
+                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Change Password</a>
+                </div>
+                <div class="row">
+                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Logout</a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="container col-4">
+
+
+            <div class="row">
+                <a href="~/Manage/Patients" class="btn btn-light btn-outline-dark fw-bold btn-lg">Patient Information</a>
+            </div>
+
+            <div class="row">
+                <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Patient Visit Record</a>
+            </div>
+
+            <div class="row">
+                <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Clinic Information</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+﻿@page
+@model CapstoneR2.Pages.Scheduled.Create
+<h1>ADD NEW PATIENT</h1>
+
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <form method="Post">
+                    
+                    
+                    <div class="form-group">
+                        <label asp-for="View.StartTime">Start Time</label>
+                        <input type="datetime-local" class="form-control" placeholder="Enter abbreviation" asp-for="View.StartTime">
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="View.EndTime">End time</label>
+                        <input type="datetime-local" class="form-control" placeholder="Enter abbreviation" asp-for="View.EndTime">
+                    </div>
+                   
+                    <div class="form-group">
+                        <label asp-for="View.Description">Description</label>
+                        <input type="text" class="form-control" placeholder="Enter Address" asp-for="View.Description">
+                    </div>
+                    <div class="form-group alert-danger">
+                        @Html.ValidationSummary()
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Create</button>
+                        <a href="~/manage/patients" class="btn btn-secondary">Cancel</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,34 @@
+﻿@page
+@model CapstoneR2.Pages.Account.Users
+@{
+
+if (Model.View != null && Model.View.Users != null && Model.View.Users.Count > 0)
+    {
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+    
+                <th scope="col">PatientID</th>
+                <th scope="col">Symptoms</th>
+                <th scope="col">DateTime</th>
+    
+    
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var user in Model?.View?.Users)
+                {
+                    <tr>
+                        <th scope="row">@user.Email</th>
+                        <th scope="row">@user.FirstName</th>
+                        <th scope="row">@user.LastName</th>
+                        <th scope="row">@user.BirthDate</th>
+    
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    }
+}

@@ -1,0 +1,145 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Patients.Index
+@{
+}
+<h3 class="text-lg-center">PATIENT INFORMATION</h3>
+
+<div class="row">
+    <div class="search">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control" placeholder="Search" id="search">
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3">
+        <div class="form-group">
+            <label for="">Sort By</label>
+            <select class="form-control" id="sortBy" asp-for="View.Patients.SortBy">
+                <option value="">choose</option>
+                <option value="">choose</option>
+                <option value="name">FirstName</option>
+                <option value="description">LastName</option>
+                <option value="abbreviation">Address</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label for="">Sort Order</label>
+            <select class="form-control" id="sortOrder" asp-for="View.Patients.SortOrder">
+                <option value="1">Ascending</option>
+                <option value="2">Descending</option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@{
+    if (Model.View != null && Model.View.Patients != null && Model.View.Patients.Items != null && Model.View.Patients.Items.Count > 0)
+    {
+        <table class="table table-bordered ">
+            <thead class="thead-gray">
+                <tr class="table-dark">
+                    <th scope="col">FirstName</th>
+                    <th scope="col">MidlleName</th>
+                    <th scope="col">LastName</th>
+                    <th scope="col">Sex</th>
+                    <th scope="col">Birthdate</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var patient in Model?.View?.Patients.Items)
+                    {
+                        <tr class="table-light">
+                            <th scope="row">@patient.FirstName</th>
+                            <td>@patient.MiddleName</td>
+                            <td>@patient.LastName</td>
+                            <td>@patient.Gender</td>
+                            <td>@patient.BirthDate</td>
+                           
+                            <td>@patient.Address</td>
+                            <td>
+                                <a href="~/manage/patients/pupdate?id=@patient.ID" class="btn btn-secondary">
+                                    <i class="fa fa-pencil">Edit</i>
+                                </a>
+                                <a href="~/manage/Patients/delete?id=@patient.ID" class="btn btn-danger">
+                                    <i class="fa fa-times">Delete</i>
+                                </a>
+                                <a href="~/manage/Consultations/create?id=@patient.ID" class="btn btn-danger">
+                                    <i class="fa fa-times">Add Consultation</i>
+                                </a>
+                                <a href="~/manage/Consultations?  id=@patient.ID " class="btn btn-danger">
+                                    <i class="fa fa-times">View</i>
+                                </a>
+                            </td>
+                           
+                                
+                            
+
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-2">
+                <a href="~/manage/patients/create" class="btn btn-light">Add New Patient</a>
+            </div>
+        </div>
+
+
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @{
+                    if (Model?.View?.Patients.PageIndex > 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="/manage/patients?pageIndex=@(Model?.View?.Patients.PageIndex-1)&pageSize=@(Model?.View?.Patients.PageSize)&sortBy=@(Model?.View?.Patients.SortBy)&sortOrder=@(Model?.View?.Patients.SortOrder)">Previous</a></li>
+                    }
+
+                    <li class="page-item"><span class="page-link">page @Model?.View?.Patients.PageIndex of @Model?.View?.Patients.PageCount (@Model?.View?.Patients.TotalRows total rows)</span></li>
+
+
+                    if (Model?.View?.Patients.PageIndex < Model?.View?.Patients.PageCount)
+                    {
+                        <li class="page-item"><a class="page-link" href="/manage/patients?pageIndex=@(Model?.View?.Patients.PageIndex+1)&pageSize=@(Model?.View?.Patients.PageSize)&sortBy=@(Model?.View?.Patients.SortBy)&sortOrder=@(Model?.View?.Patients.SortOrder)">Next</a></li>
+                    }
+                }
+            </ul>
+        </nav>
+    }
+    else
+    {
+        <div>There are no records to show.</div>
+    }
+}
+
+@section Scripts
+    {
+    <script>
+        $("#search").keyup(function (event) {
+            if (event.keyCode === 13) {
+                window.location = "/manage/patients?keyword=" + $("#search").val();
+            }
+        });
+
+        $("#sortBy").change(function () {
+            window.location = "/manage/patients?keyword=@(Model.View.Patients.Keyword)&sortBy=" + $("#sortBy").val() + "&sortOrder=" + $("#sortOrder").val();
+        });
+
+        $("#sortOrder").change(function () {
+            window.location = "/manage/patients?keyword=@(Model.View.Patients.Keyword)&sortBy=" + $("#sortBy").val() + "&sortOrder=" + $("#sortOrder").val();
+        });
+    </script>
+}

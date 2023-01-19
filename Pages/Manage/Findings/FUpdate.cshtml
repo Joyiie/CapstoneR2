@@ -1,0 +1,37 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Findings.FUpdate
+
+@{
+}
+<div class="row">
+    <div class="col-4">
+        <div class="card">
+            <div class="card-body">
+                <form method="Post">
+                    
+                    <div class="form-group">
+                        <input type="hidden" asp-for="View.ID" />
+                        <label asp-for="View.Tags">Tags</label>
+                        <input type="text" class="form-control" placeholder="Enter role name" asp-for="View.Tags">
+                    </div>
+                    <div class="form-group">
+                        <input type="hidden" asp-for="View.ID" />
+                        <label asp-for="View.Description">Description</label>
+                        <input type="text" class="form-control" placeholder="Enter role name" asp-for="View.Description">
+                    </div>
+                    
+                   
+                    <div class="form-group alert-danger">
+                        @Html.ValidationSummary()
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Update</button>
+                        <a href="~/manage/consultations" class="btn btn-secondary">Cancel</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

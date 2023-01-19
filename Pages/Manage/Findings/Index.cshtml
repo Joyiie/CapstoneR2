@@ -1,0 +1,36 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Findings.Index
+
+@{
+    <h2>Consultaion</h2>
+
+    if (Model.View != null && Model.View.Findings != null && Model.View.Findings.Count > 0)
+    {
+        <table class="table tabletable-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Tags</th>
+                    <th scope="col">Descriptions</th>
+                    <th scope="col">Edit</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var finding in Model?.View?.Findings)
+                    {
+                        <tr>
+                            <th scope="row">@finding.Tags</th>
+                            <td>@finding.Description</td>
+                            <td>
+                                <a href="~/manage/findings/fupdate?id=@finding.ID" class="btn btn-secondary">
+                                    <i class="fa fa-pencil">Edit</i>
+                                </a>
+                            </td>
+                          
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}

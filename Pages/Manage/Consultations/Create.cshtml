@@ -1,0 +1,53 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Consultations.Create
+@{
+}
+<h1>Add Consultation</h1>
+<div class="container-fluid justify-content-center">
+
+    <div class="col-12">
+
+
+        <div class="row col d-flex justify-content-center" >
+            <form method="Post">
+                <div class="form-group">
+                    <label asp-for="View.Symptoms">Symptoms</label>
+                    <input type="text" class="form-control" placeholder="Enter Symptoms" asp-for="View.Symptoms">
+                </div>
+                <div class="form-group">
+                    <label asp-for="View.DateCreated">DateTime</label>
+                    <input type="datetime-local" class="form-control" placeholder="DateTime" asp-for="View.DateCreated">
+                </div>
+                <div class="form-group">
+                    <label asp-for="View.DateUpdated">DateTime</label>
+                    <input type="datetime-local" class="form-control" placeholder="DateTime" asp-for="View.DateUpdated">
+                </div>
+                <div class="form-group">
+                    <label asp-for="View.FTags">Finding Tags</label>
+                    <input type="text" class="form-control" placeholder="Enter Finding Tags" asp-for="View.FTags">
+                </div>
+                <div class="form-group">
+                    <label asp-for="View.FDescription">Finding Description</label>
+                    <input type="text" class="form-control" placeholder="Enter Finding Description" asp-for="View.FDescription">
+                </div>
+                <div class="form-group">
+                    <label asp-for="View.PTags">Prescription Tags</label>
+                    <input type="text" class="form-control" placeholder="Enter Finding Tags" asp-for="View.PTags">
+                </div>
+                <div class="form-group">
+                    <label asp-for="View.PDescription"> Precription Description</label>
+                    <input type="text" class="form-control" placeholder="Enter  Prescription Description" asp-for="View.PDescription">
+                </div>
+                <div class="form-group alert-danger">
+                    @Html.ValidationSummary()
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                    <a href="~/manage/Consultations" class="btn btn-secondary">Cancel</a>
+                </div>
+
+
+            </form>
+        </div>
+    </div>
+</div>
