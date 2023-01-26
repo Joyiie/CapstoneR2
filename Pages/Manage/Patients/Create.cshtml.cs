@@ -57,11 +57,7 @@ namespace CapstoneR2.Pages.Manage.Patients
                 ModelState.AddModelError("", "Birthdate name cannot be blank.");
                 return Page();
             }
-            if (string.IsNullOrEmpty(View.ContactNo))
-            {
-                ModelState.AddModelError("", "Contact NO name cannot be blank.");
-                return Page();
-            }
+           
             if (string.IsNullOrEmpty(View.Address))
             {
                 ModelState.AddModelError("", "Address name cannot be blank.");
@@ -75,7 +71,7 @@ namespace CapstoneR2.Pages.Manage.Patients
                 LastName = View.LastName,
                 Gender = View.Gender,
                 BirthDate = View.BirthDate,
-                ContactNo= View.ContactNo,
+               
                 Address = View.Address
             };
 

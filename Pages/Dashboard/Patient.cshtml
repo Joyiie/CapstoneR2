@@ -5,36 +5,116 @@
 }
 <div class="container">
 
-    <h2 class="text-center">PATIENT DASHBOARD</h2>
-    <h1 class="text-lg-start">WELCOME! @this.User.Name() @this.User.Role()</h1>
-
-    <div class="row">
-        <div class="container col-4">
-            <div class="row">
-                <div class="row">
-                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Profile setting</a>
-                </div>
-                <div class="row">
-                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Change Password?</a>
-                </div>
-                <div class="row">
-                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Log out</a>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="container col-4">
-            <div class="row">
-                <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Profile</a>
-            </div>
-            <div class="row">
-                <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">My visit record</a>
-            </div>
+    <h2 style="font-size: 24px; text-decoration:underline; font-family:'Book Antiqua';" class="text-center">PATIENT PROFILE</h2>
+    <div class="container">
+        <div class="row justify-content-center">
             
-            <div class="row">
-                <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Clinic Information</a>
+            <div class="col-5 d-flex">
+                <div class="card bg-mustardlite">
+                    <div class="card-body">
+                        <div class="row py-3">
+                            <a href="~/manage/patients/clinicinfo" class="btn btn-primary py-3">Clinic information</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/apps/pappt" class="btn btn-primary py-3">Set Appointment</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/patients/ViewRecords" class="btn btn-primary py-3">Consultation Records</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/patients/Edit?id=@this.User.Id()" class="btn btn-primary py-3">Edit Profile</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/patients/changepass" class="btn btn-primary py-3">Change Password</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/patients/changepass" class="btn btn-primary py-3">Log Out</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card bg-mustardlite">
+
+                   <div class="card-body">
+                       <table class="table table-borderless">
+                           <tr>
+                               <td>
+                                    <span>Name:</span>
+                               </td>
+                               <td>
+                                    <span> @ViewData["firstname"] @ViewData["middlename"] @ViewData["lastname"]  </span>
+                               </td>
+                           </tr>
+                           <tr>
+                               <td>
+                                   <span>Gender:</span>>
+                               </td>
+                                <td>
+                                    <span>@ViewData["gender"]</span>
+                                </td>
+                           </tr>
+                           <tr>
+                               <td>
+                                    <span>Birthdate:</span>
+                               </td>
+                                <td>
+                                    <span>@ViewData["birthdate"]</span>
+                                </td>
+                           </tr>
+                            <tr>
+                                <td>
+                                    <span>Email:</span>
+                                </td>
+                                <td>
+                                    <span>@ViewData["email"]</span>
+                                </td>
+                            </tr>
+                           <tr>
+                                <td>
+                                    <span>Address:</span>
+                               </td>
+                                <td>
+                                    <span>@ViewData["address"]</span>
+                                </td>
+                           </tr>
+
+                       </table>
+                      
+                   </div>
+                    <div class="card-footer">
+                       <div id="printable">
+                            <div id="qrcode"></div>                             
+                       </div>
+                        <button id="qrprint">PRINT</button>
+                    </div>
+                    
+                  
+                </div>
             </div>
         </div>
     </div>
+    
 </div>
+
+@section Scripts{
+
+    <script>
+
+        window.addEventListener("load", () => {
+            var qrc = new QRCode(document.getElementById("qrcode"), "https://localhost:7252/manage/Consultations?id=@this.User.Id()");
+        });
+
+        $("#qrprint").click(function(){
+
+        
+        var prtContent = document.getElementById("printable");
+        var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+        WinPrint.document.write(prtContent.innerHTML);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+        WinPrint.close();
+        });
+
+    </script>
+}

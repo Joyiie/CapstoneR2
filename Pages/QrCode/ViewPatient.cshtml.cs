@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace CapstoneR2.Pages.Account
+namespace CapstoneR2.Pages.QrCode
 {
-    public class CreateModel : PageModel
+    public class ViewPatientModel : PageModel
     {
         public void OnGet()
         {

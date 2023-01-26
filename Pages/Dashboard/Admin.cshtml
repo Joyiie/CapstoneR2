@@ -1,51 +1,145 @@
 ﻿@page
-@model CapstoneR2.Pages.Dashboard.AdminModel
+@model CapstoneR2.Pages.Dashboard.Admin
 @using CapstoneR2.Infrastructure.Domain.Security;
 @{
 }
+
 <div class="container">
 
-    <h2 class="text-center btn-lg">ADMIN DASHBOARD</h2>
-    <h1 class="text-lg-start btn-lg">WELCOME! @this.User.Name() @this.User.Role()</h1>
+    <h2 style="font-size: 24px; text-decoration:underline; font-family:'Book Antiqua';" class="text-center">ADMIN PROFILE</h2>
+    <div class="container">
+        <div class="row justify-content-center">
 
-    <div class="row">
+            <div class="col-5 d-flex">
+                <div class="card bg-mustardlite">
+                    <div class="card-body">
+                        <div class="row py-3">
+                            <a href="~/account/adminsetting?id=@this.User.Id()" class="btn btn-primary py-3">Profile Setting</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/account/newuser" class="btn btn-primary py-3">Add new user</a>
+                        </div>
 
-        <div class="container col-4">
+                        <div class="row py-3">
+                            <a href="~/account/changepass" class="btn btn-primary py-3">Change Password</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/patients/changepass" class="btn btn-primary py-3">Log Out</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/patients" class="btn btn-primary py-3">Patient Information</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/consultations/visitrecord" class="btn btn-primary py-3">Patient Visit Record</a>
+                        </div>
+                        <div class="row py-3">
+                            <a href="~/manage/apps/appt" class="btn btn-primary py-3">Appointments</a>
+                        </div>
 
-            <div class="row">
-
-                <div class="row">
-                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Add New User</a>
+                        <div class="row py-3">
+                            <a href="~/manage/patients/Clinicinfo" class="btn btn-primary py-3">Clinic information</a>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="row">
-                    <a href="~/manage/patients/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Add New Patient</a>
-                </div>
-                <div class="row">
-                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Change Password</a>
-                </div>
-                <div class="row">
-                    <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Logout</a>
-                </div>
+                <div class="card bg-mustardlite">
 
+                    <div class="card-body">
+                        <table class="table table-borderless">
+                            <tr>
+                                <td>
+                                    <span>Name: </span>
+                                </td>
+                                <td>
+                                    <span> @ViewData["firstname"] @ViewData["middlename"] @ViewData["lastname"]  </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Gender: </span>>
+                                </td>
+                                <td>
+                                    <span>@ViewData["gender"]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Birthdate: </span>
+                                </td>
+                                <td>
+                                    <span>@ViewData["birthdate"]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Email: </span>
+                                </td>
+                                <td>
+                                    <span>@ViewData["email"]</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Address: </span>
+                                </td>
+                                <td>
+                                    <span>@ViewData["address"]</span>
+                                </td>
+                            </tr>
+
+                        </table>
+
+                    </div>
+                    <div class="card-footer">
+                        <div style="width: 500px" id="reader"></div>
+                    </div>
+
+                </div>
             </div>
-
         </div>
+    </div>
 
-        <div class="container col-4">
+</div>
 
-
-            <div class="row">
-                <a href="~/Manage/Patients" class="btn btn-light btn-outline-dark fw-bold btn-lg">Patient Information</a>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
-
-            <div class="row">
-                <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Patient Visit Record</a>
+            <div class="modal-body">
+                ...
             </div>
-
-            <div class="row">
-                <a href="~/Account/Create" class="btn btn-light btn-outline-dark fw-bold btn-lg">Clinic Information</a>
+            <div class="modal-footer">               
+                <a href="link-here" class="btn btn-primary">Proceed</a>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+
+       
+
+       function onScanSuccess(decodedText, decodedResult) 
+       {
+            // Handle on success condition with the decoded text or result.
+            const modal = new bootstrap.Modal("#exampleModal")
+            console.log(`Scan result: ${decodedText}`, decodedResult);
+            $("#exampleModal").find(".modal-body").text(`${decodedText}`);
+            $("a[href='link-here']").attr('href', `${decodedText}`)
+            modal.show();
+       }
+
+        var html5QrcodeScanner = new Html5QrcodeScanner(
+	        "reader", { fps: 10, qrbox: 250 });
+            html5QrcodeScanner.render(onScanSuccess);
+    </script>
+ 
+}

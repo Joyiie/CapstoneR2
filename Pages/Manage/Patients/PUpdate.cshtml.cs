@@ -41,7 +41,7 @@ namespace CapstoneR2.Pages.Manage.Patients
                                        Gender = a.Gender,
                                        BirthDate = a.BirthDate,
                                        Address = a.Address,
-                                       ContactNo = a.ContactNo
+                                     
                                    }).FirstOrDefault();
 
             if (patient == null)
@@ -76,11 +76,7 @@ namespace CapstoneR2.Pages.Manage.Patients
                 ModelState.AddModelError("", "Description cannot be blank.");
                 return Page();
             }
-            if (string.IsNullOrEmpty(View.ContactNo))
-            {
-                ModelState.AddModelError("", "Role name cannot be blank.");
-                return Page();
-            }
+           
             if (!Enum.IsDefined(typeof(Gender), View.Gender))
             {
                 ModelState.AddModelError("", "Sex name cannot be blank.");
@@ -97,8 +93,8 @@ namespace CapstoneR2.Pages.Manage.Patients
                     a.FirstName.ToLower() == View.FirstName.ToLower()&&
                     a.LastName.ToLower() == View.LastName.ToLower()&&
                     a.MiddleName.ToLower() == View.MiddleName.ToLower() &&
-                    a.Address.ToLower() == View.Address.ToLower() &&
-                    a.ContactNo.ToLower() == View.ContactNo.ToLower() 
+                    a.Address.ToLower() == View.Address.ToLower() 
+                   
                    
 
 
@@ -121,7 +117,7 @@ namespace CapstoneR2.Pages.Manage.Patients
                 patient.BirthDate = View.BirthDate;
                 patient.Address = View.Address;
                 patient.Gender = View.Gender;
-                patient.ContactNo = View.ContactNo;
+              
 
                 _context?.Patients?.Update(patient);
                 _context?.SaveChanges();

@@ -19,9 +19,9 @@
             <select class="form-control" id="sortBy" asp-for="View.Patients.SortBy">
                 <option value="">choose</option>
                 <option value="">choose</option>
-                <option value="name">FirstName</option>
-                <option value="description">LastName</option>
-                <option value="abbreviation">Address</option>
+                <option value="firstname">First Name</option>
+                <option value="lastname">Last Name</option>
+                <option value="address">Address</option>
             </select>
         </div>
     </div>
@@ -72,13 +72,10 @@
                                 <a href="~/manage/patients/pupdate?id=@patient.ID" class="btn btn-secondary">
                                     <i class="fa fa-pencil">Edit</i>
                                 </a>
-                                <a href="~/manage/Patients/delete?id=@patient.ID" class="btn btn-danger">
+                                <a href="~/manage/Patients/pdelete?id=@patient.ID" class="btn btn-danger">
                                     <i class="fa fa-times">Delete</i>
-                                </a>
-                                <a href="~/manage/Consultations/create?id=@patient.ID" class="btn btn-danger">
-                                    <i class="fa fa-times">Add Consultation</i>
-                                </a>
-                                <a href="~/manage/Consultations?  id=@patient.ID " class="btn btn-danger">
+                                </a> 
+                                <a href="~/manage/Consultations?id=@patient.ID " class="btn btn-danger">
                                     <i class="fa fa-times">View</i>
                                 </a>
                             </td>

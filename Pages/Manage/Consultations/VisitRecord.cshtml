@@ -1,0 +1,133 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Consultations.VisitRecord
+
+
+<h3 class="text-lg-center">PATIENT INFORMATION</h3>
+
+<div class="row">
+    <div class="search">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control" placeholder="Search" id="search">
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3">
+        <div class="form-group">
+            <label for="">Sort By</label>
+            <select class="form-control" id="sortBy" asp-for="View.Consultationrecords.SortBy">
+                <option value="">choose</option>
+                <option value="">choose</option>
+                <option value="name">FirstName</option>
+                <option value="description">LastName</option>
+                <option value="abbreviation">Address</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label for="">Sort Order</label>
+            <select class="form-control" id="sortOrder" asp-for="View.Consultationrecords.SortOrder">
+                <option value="1">Ascending</option>
+                <option value="2">Descending</option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@{
+    if (Model.View != null && Model.View.Consultationrecords != null && Model.View.Consultationrecords.Items != null && Model.View.Consultationrecords.Items.Count > 0)
+    {
+        <table class="table table-bordered ">
+            <thead class="thead-gray">
+                <tr class="table-dark">
+                    <th scope="col">Name</th>                   
+                    <th scope="col">Date Craeted</th>
+                    <th scope="col">Date Updated</th>
+                    <th scope="col">Actions</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var consultationRecord in Model?.View?.Consultationrecords.Items)
+                    {
+                        <tr class="table-light">
+
+                            <td>@consultationRecord.Patient?.FirstName @consultationRecord.Patient?.LastName</td>
+                            <td>@consultationRecord.DateCreated</td>
+                            <td>@consultationRecord.DateUpdated</td>
+
+                            <td>
+                                <a href="~/manage/consultations/cupdate?id=@consultationRecord.ID" class="btn btn-secondary">
+                                    <i class="fa fa-pencil">Edit</i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="col-2">
+                <a href="~/manage/users/create" class="btn btn-light">Add New User</a>
+            </div>
+        </div>
+
+
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @{
+                    if (Model?.View?.Consultationrecords.PageIndex > 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="/manage/patients?pageIndex=@(Model?.View?.Consultationrecords.PageIndex-1)&pageSize=@(Model?.View?.Consultationrecords.PageSize)&sortBy=@(Model?.View?.Consultationrecords.SortBy)&sortOrder=@(Model?.View?.Consultationrecords.SortOrder)">Previous</a></li>
+                    }
+
+                    <li class="page-item"><span class="page-link">page @Model?.View?.Consultationrecords.PageIndex of @Model?.View?.Consultationrecords.PageCount (@Model?.View?.Consultationrecords.TotalRows total rows)</span></li>
+
+
+                    if (Model?.View?.Consultationrecords.PageIndex < Model?.View?.Consultationrecords.PageCount)
+                    {
+                        <li class="page-item"><a class="page-link" href="/manage/patients?pageIndex=@(Model?.View?.Consultationrecords.PageIndex+1)&pageSize=@(Model?.View?.Consultationrecords.PageSize)&sortBy=@(Model?.View?.Consultationrecords.SortBy)&sortOrder=@(Model?.View?.Consultationrecords.SortOrder)">Next</a></li>
+                    }
+                }
+            </ul>
+        </nav>
+    }
+    else
+    {
+        <div>There are no records to show.</div>
+    }
+}
+
+
+
+@section Scripts
+    {
+    <script>
+        $("#search").keyup(function (event) {
+            if (event.keyCode === 13) {
+                window.location = "/manage/Users?keyword=" + $("#search").val();
+            }
+        });
+
+        $("#sortBy").change(function () {
+            window.location = "/manage/Users?keyword=@(Model.View.Consultationrecords.Keyword)&sortBy=" + $("#sortBy").val() + "&sortOrder=" + $("#sortOrder").val();
+        });
+
+        $("#sortOrder").change(function () {
+            window.location = "/manage/Users?keyword=@(Model.View.Consultationrecords.Keyword)&sortBy=" + $("#sortBy").val() + "&sortOrder=" + $("#sortOrder").val();
+        });
+
+    </script>
+}
+

@@ -7,7 +7,7 @@
         public string? LastName { get; set;}
         public string? MiddleName { get; set; }
         public string? Address { get; set; }
-        public string? ContactNo { get; set; }
+       
         public DateTime BirthDate { get; set; }
         public Enums.Gender Gender { get; set; }
 

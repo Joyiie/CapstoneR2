@@ -1,0 +1,35 @@
+﻿@page
+@model CapstoneR2.Pages.Account.ChangePassModel
+@{
+}
+<div class ="row justify-content-md-center">
+    <div class="col-4">
+        <div class="card border border-dark bg-mustardlite">
+            <div class="card-body">
+                <form method="Post">
+                    <div class="form-group">
+                        <label asp-for="View.CurrentPass">Current Password</label>
+                        <input asp-for="View.CurrentPass" type="text" class="form-control" placeholder="Enter Current password" >
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="View.NewPass" >New Password</label>
+                        <input asp-for="View.NewPass" type="text" class="form-control" placeholder="Enter New password" >
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="View.RetypedPassword" >Re-type New Password</label>
+                        <input asp-for="View.RetypedPassword" type="text" class="form-control" placeholder="Enter new Password">
+                    </div>
+                    <div class="form-group alert-danger">
+                        @Html.ValidationSummary()
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Update password</button>
+                        <a href="~/dashboard/patient" class="btn btn-secondary">Cancel</a>
+                    </div>
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

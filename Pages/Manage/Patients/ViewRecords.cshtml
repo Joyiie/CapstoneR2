@@ -1,0 +1,80 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Patients.ViewRecordsModel
+@{
+    
+   <div class="container">
+       <div class="row justify-content-center">
+            <div class="col-md-6 px-2">
+               
+
+                @if (Model.View != null && Model.View.ConsultationRecords != null && Model.View.ConsultationRecords.Count > 0)
+                {
+                    <table class="table table-bordered bg-mustardlite">
+                        <thead class="table-dark">
+                            <tr  class="thead-gray">
+                                <th scope="col">Symptoms</th>
+                                <th scope="col">Date Created</th>
+                                <th scope="col">Date Updated</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                foreach (var consultationRecord in Model?.View?.ConsultationRecords)
+                                {
+                                    <tr class="table-light">
+                                        
+                                        <td>@consultationRecord.DateCreated</td>
+                                        <td>@consultationRecord.DateUpdated</td>
+                                        <td>
+                                         <td>
+                                            <a href="~/manage/patients/viewrecords?id=@consultationRecord.ID" class="btn btn-primary">
+                                                <i class="fa fa-pencil">Add Consultation</i>
+                                            </a>
+                                        </td>                                                        
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                }
+            </div>
+
+            <div class="col-md-3 px-2 ">
+
+
+                <div class="card py-2 bg-mustardlite">
+                        <div class="card-header">
+                        <span>PRESCRIPTIONS</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-group">
+                                <span>@ViewData["pdsc"]</span>
+                            </div>
+                            <div class="card-group">
+                                <span>@ViewData["ptags"]</span>
+                            </div>                
+                        </div>
+                </div>
+
+                <div class="card py-2 bg-mustardlite">
+                        <div class="card-header">
+                            <span>FINDINGS</span>
+                        </div>
+                            <div class="card-body">
+                                <div class="card-group">
+                                    <span>@ViewData["fdsc"]</span>
+                                </div>
+                                <div class="card-group">
+                                    <span>@ViewData["ftags"]</span>
+                                </div>                                                
+                            </div>
+                </div>
+                
+
+            </div>
+        </div>
+   </div>
+}
+
+

@@ -1,0 +1,37 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Apps.ViewApptModel
+@{
+}
+@if (Model.View != null && Model.View.Appointments != null && Model.View.Appointments.Count > 0)
+{
+    <table class="table table-bordered bg-mustardlite">
+        <thead class="table-dark">
+            <tr class="thead-gray">
+                <th scope="col">Symptoms</th>
+                <th scope="col">Date </th>
+                <th scope="col">Time</th>
+                <th scope="col">Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                foreach (var appointment in Model?.View?.Appointments)
+                {
+                    <tr class="table-light">
+
+                        <td>@appointment.Symptom</td>
+                        <td>@appointment.StartTime.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@appointment.StartTime.Value.ToString("H:mm tt") - @appointment.EndTime.Value.ToString("H:mm tt")</td>
+                        <td>
+                           <a href="~/manage/consultations/Create?id=@appointment.ID" class="btn btn-primary">
+                           <i class="fa fa-pencil">create consultation</i>
+                           </a>
+                        </td>
+
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}

@@ -27,7 +27,7 @@ namespace CapstoneR2.Pages.Scheduled
 
         public IActionResult OnPost()
         {
-            if (string.IsNullOrEmpty(View.Description))
+            if (string.IsNullOrEmpty(View.Symptom))
             {
                 ModelState.AddModelError("", "Description name cannot be blank.");
                 return Page();
@@ -52,7 +52,7 @@ namespace CapstoneR2.Pages.Scheduled
                 PatientID = Guid.NewGuid(),
                 StartTime = View.StartTime,
                 EndTime = View.EndTime,
-                Description = View.Description,
+                Symptom = View.Symptom,
                
                 
             };

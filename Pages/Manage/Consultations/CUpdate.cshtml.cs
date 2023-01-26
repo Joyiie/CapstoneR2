@@ -36,7 +36,7 @@ namespace CapstoneR2.Pages.Manage.Consultations
                                    .Select(a => new ViewModel()
                                    {
                                        ID = a.ID,
-                                       Symptoms = a.Symptoms,
+                                      
                                        DateCreated = a.DateCreated,
                                        DateUpdated = a.DateUpdated,
 
@@ -51,11 +51,7 @@ namespace CapstoneR2.Pages.Manage.Consultations
 
         public IActionResult OnPost()
         {
-            if (string.IsNullOrEmpty(View.Symptoms))
-            {
-                ModelState.AddModelError("", "Role name cannot be blank.");
-                return Page();
-            }
+         
             if (DateTime.MinValue >= View.DateCreated)
             {
                 ModelState.AddModelError("", "Date Created  cannot be blank.");
@@ -70,13 +66,7 @@ namespace CapstoneR2.Pages.Manage.Consultations
           
 
             var existingConsultationRecord= _context?.ConsultationRecords?.FirstOrDefault(a =>
-                    a.ID != View.ID &&
-                    a.Symptoms.ToLower() == View.Symptoms.ToLower()
-                    
-                    
-
-
-
+                    a.ID != View.ID 
             );
 
             if (existingConsultationRecord != null)
@@ -89,7 +79,7 @@ namespace CapstoneR2.Pages.Manage.Consultations
 
             if (consultationRecord != null)
             {
-                consultationRecord.Symptoms= View.Symptoms;
+               
                 consultationRecord.DateCreated = View.DateCreated;
                 consultationRecord.DateUpdated = View.DateUpdated;
                 

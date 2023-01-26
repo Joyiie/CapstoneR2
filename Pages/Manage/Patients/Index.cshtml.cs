@@ -32,7 +32,7 @@ namespace CapstoneR2.Pages.Manage.Patients
 
             var skip = (int)((pageIndex - 1) * pageSize);
 
-            var query = _context.Patients.AsQueryable();
+            var query = _context.Users.Where(a => a.PatientID !=null).AsQueryable();
 
             if (!string.IsNullOrEmpty(keyword))
             {
@@ -51,9 +51,9 @@ namespace CapstoneR2.Pages.Manage.Patients
                 {
                     query = query.OrderBy(a => a.FirstName);
                 }
-                else if (sortBy.ToLower() == "fisrtname" && sortOrder == SortOrder.Descending)
+                else if (sortBy.ToLower() == "middlename" && sortOrder == SortOrder.Descending)
                 {
-                    query = query.OrderByDescending(a => a.FirstName);
+                    query = query.OrderByDescending(a => a.MiddleName);
                 }
                 else if (sortBy.ToLower() == "lastname" && sortOrder == SortOrder.Ascending)
                 {
@@ -65,7 +65,7 @@ namespace CapstoneR2.Pages.Manage.Patients
                 }
                 else if (sortBy.ToLower() == "address" && sortOrder == SortOrder.Ascending)
                 {
-                    query = _context.Patients.OrderBy(a => a.Address);
+                    query = _context.Users.OrderBy(a => a.Address);
                 }
                 else if (sortBy.ToLower() == "address" && sortOrder == SortOrder.Descending)
                 {
@@ -78,7 +78,7 @@ namespace CapstoneR2.Pages.Manage.Patients
                             .Take((int)pageSize)
                             .ToList();
 
-            View.Patients = new Paged<Patient>()
+            View.Patients = new Paged<User>()
             {
                 Items = patients,
                 PageIndex = pageIndex,
@@ -95,7 +95,7 @@ namespace CapstoneR2.Pages.Manage.Patients
 
         public class ViewModel
         {
-            public Paged<Patient>? Patients { get; set; }
+            public Paged<User>? Patients { get; set; }
         }
     }
 }

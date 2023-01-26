@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-
+#pragma warning disable CS8602
 namespace CapstoneR2.Pages.Account
 {
     public class Login : PageModel

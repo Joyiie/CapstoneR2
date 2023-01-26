@@ -1,0 +1,35 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Apps.PApptModel
+@{
+}
+       
+ <a href="~/manage/apps/patientappt" class="btn btn-primary py-3">Set Appointment</a>
+         
+
+@if (Model.View != null && Model.View.Appointments != null && Model.View.Appointments.Count > 0)
+{
+                        <table class="table table-bordered bg-mustardlite">
+                            <thead class="table-dark">
+                                <tr  class="thead-gray">
+                                    <th scope="col">Symptoms</th>
+                                    <th scope="col">Date of Visit</th>
+                                    <th scope="col">Time of Visit</th>
+                                   
+                                </tr>
+                            </thead>
+                            <tbody>
+            @{
+                foreach (var appointment in Model?.View?.Appointments)
+                {
+                                                <tr class="table-light">
+
+                                                    <td>@appointment.Symptom</td>
+                                                    <td>@appointment.StartTime.Value.ToString("dd/MM/yyyy")</td>
+                                                    <td>@appointment.StartTime.Value.ToString("H:mm tt") - @appointment.EndTime.Value.ToString("H:mm tt")</td>
+
+                    </tr>
+                }
+            }
+                            </tbody>
+                        </table>
+}

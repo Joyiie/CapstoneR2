@@ -40,7 +40,7 @@ namespace CapstoneR2.Pages.Manage.Patients
                                        Gender = a.Gender,
                                        BirthDate = a.BirthDate,
                                        Address = a.Address,
-                                       ContactNo =a.ContactNo
+                                       
                                    }).FirstOrDefault();
 
             if (patient == null)
@@ -64,6 +64,7 @@ namespace CapstoneR2.Pages.Manage.Patients
             if (patient != null)
             {
                 _context?.Patients?.Remove(patient);
+               
                 _context?.SaveChanges();
 
                 return RedirectPermanent("~/manage/Patients");

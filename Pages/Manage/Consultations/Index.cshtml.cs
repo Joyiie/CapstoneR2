@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Authorization;
 using System.Data;
+using CapstoneR2.Infrastructure.Domain.Security;
+using Microsoft.EntityFrameworkCore;
 
 namespace CapstoneR2.Pages.Manage.Consultations
 {
@@ -23,54 +25,36 @@ namespace CapstoneR2.Pages.Manage.Consultations
             View = View ?? new ViewModel();
         }
 
-        public IActionResult OnGet(int? pageIndex = 1, int? pageSize = 10, string? sortBy = "", SortOrder sortOrder = SortOrder.Ascending, string? keyword = "")
+        public void OnGet(Guid? id = null,Guid? crid = null)
+
         {
-
-            var skip = (int)((pageIndex - 1) * pageSize);
-
-            var query = _context.ConsultationRecords.AsQueryable();
-
-            if (!string.IsNullOrEmpty(keyword))
+            ViewData["id"] = id;
+            var user = _context?.Users?.Where(a => a.ID == id).FirstOrDefault();
+            if (user != null)
             {
-                query = query.Where(a =>
-                            a.Symptoms != null && a.Symptoms.ToLower().Contains(keyword.ToLower())
-                      
-                );
-            }
+                Guid? patientId = user.PatientID;
+                var patientConsultation = _context?.ConsultationRecords?.Where(a => a.PatientID == patientId).Include(a => a.Patient).Include(a => a.Appointment).ToList();
+                View.ConsultationRecords = patientConsultation;
 
-            var totalRows = query.Count();
+                var findings = _context?.Findings?.Where(a => a.ConsultationRecordID == crid).FirstOrDefault();
+                var prescriptions = _context?.Prescriptions?.Where(a => a.ConsultationRecordID == crid).FirstOrDefault();
 
-            if (!string.IsNullOrEmpty(sortBy))
-            {
-                if (sortBy.ToLower() == "firstname" && sortOrder == SortOrder.Ascending)
+
+                if (findings != null && prescriptions != null)
                 {
-                    query = query.OrderBy(a => a.Symptoms);
+
+
+                    ViewData["pdsc"] = prescriptions.Description;
+                    ViewData["ptags"] = prescriptions.Tags;
+                    ViewData["fdsc"] = findings.Description;
+                    ViewData["ftags"] = findings.Tags;
+
                 }
-              
             }
-
-            var Consultationrecords = query
-                            .Skip(skip)
-                            .Take((int)pageSize)
-                            .ToList();
-
-            View.Consultationrecords = new Paged<ConsultationRecord>()
-            {
-                Items = Consultationrecords,
-                PageIndex = pageIndex,
-                PageSize = pageSize,
-                TotalRows = totalRows,
-                SortBy = sortBy,
-                SortOrder = sortOrder,
-                Keyword = keyword
-            };
-            return Page();
-
         }
-
         public class ViewModel
         {
-            public Paged<ConsultationRecord>? Consultationrecords { get; set; }
+            public List<ConsultationRecord>? ConsultationRecords { get; set; }
         }
     }
 }

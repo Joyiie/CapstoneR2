@@ -17,11 +17,13 @@ namespace CapstoneR2.Pages.Manage.Consultations
         [BindProperty]
         public ViewModel View { get; set; }
 
+
         public Create(DefaultDBContext context, ILogger<Index> logger)
         {
             _logger = logger;
             _context = context;
             View = View ?? new ViewModel();
+  
         }
 
         public IActionResult OnGet()
@@ -29,26 +31,22 @@ namespace CapstoneR2.Pages.Manage.Consultations
             return Page();
         }
 
-        public IActionResult OnPost()
+        public IActionResult OnPost(Guid? id = null)
         {
+           
             Guid CRGuid = Guid.NewGuid();
+            var appts = _context?.Appointments?.FirstOrDefault(a => a.ID == id);
+      
 
-            if (string.IsNullOrEmpty(View.Symptoms))
-            {
-                ModelState.AddModelError("", "Symptoms cannot be blank.");
-                return Page();
-            }
+
+
 
             if (DateTime.MinValue >= View.DateCreated)
             {
                 ModelState.AddModelError("", "DateTime cannot be blank.");
                 return Page();
             }
-            if (DateTime.MinValue >= View.DateUpdated)
-            {
-                ModelState.AddModelError("", "DateTime cannot be blank.");
-                return Page();
-            }
+           
 
             if (string.IsNullOrEmpty(View.FTags))
             {
@@ -74,10 +72,10 @@ namespace CapstoneR2.Pages.Manage.Consultations
             ConsultationRecord consultationRecords = new ConsultationRecord()
             {
                 ID = CRGuid,
-                Symptoms = View.Symptoms,
+                AppointmentID = id,
                 DateCreated = View.DateCreated,
-                DateUpdated = View.DateUpdated
-
+                DateUpdated = View.DateUpdated,
+                PatientID = appts.PatientID
             };
             Infrastructure.Domain.Models.Prescription prescription = new Infrastructure.Domain.Models.Prescription()
             {
@@ -98,12 +96,14 @@ namespace CapstoneR2.Pages.Manage.Consultations
             _context?.ConsultationRecords?.Add(consultationRecords);
             _context?.SaveChanges();
 
-            return RedirectPermanent("~/manage/consultations");
+            return RedirectPermanent("~/manage/consultations/visitrecord");
         }
 
         public class ViewModel : CRViewModel
         {
 
         }
+
+
     }
 }

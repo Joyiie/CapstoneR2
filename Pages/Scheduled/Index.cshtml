@@ -7,7 +7,6 @@
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">Appointment Id</th>
                     <th scope="col">Patient Id</th>
                     <th scope="col">Start Time </th>
                     <th scope="col">End Time</th>
@@ -19,12 +18,10 @@
                     foreach (var appointment in Model?.View?.Appointments)
                     {
                         <tr>
-                            <th>@appointment.ID
-                            <th>
-                            <td>@appointment.PatientID</td>
+                            <td>@appointment.Patient.FirstName@appointment.Patient.LastName</td>
                             <td>@appointment.StartTime</td>
                             <td>@appointment.EndTime</td>
-                            <td>@appointment.Description</td>
+                            <td>@appointment.Symptom</td>
                         </tr>
                     }
                 }

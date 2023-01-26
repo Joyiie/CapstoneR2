@@ -1,0 +1,134 @@
+﻿@page
+@model CapstoneR2.Pages.Manage.Apps.Appt
+@{
+}
+<h1 class="justify-content-lg-center">APPOINTMENT SCHEDULE</h1>
+
+
+<div class="row">
+    <div class="search">
+        <i class="bi bi-search"></i>
+        <input type="text" class="form-control" placeholder="Search" id="search">
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-3">
+        <div class="form-group">
+            <label for="">Sort By</label>
+            <select class="form-control" id="sortBy" asp-for="View.Appointments.SortBy">
+                <option value="">choose</option>
+                <option value="">choose</option>
+                <option value="name">FirstName</option>
+                <option value="description">LastName</option>
+                <option value="abbreviation">Address</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label for="">Sort Order</label>
+            <select class="form-control" id="sortOrder" asp-for="View.Appointments.SortOrder">
+                <option value="1">Ascending</option>
+                <option value="2">Descending</option>
+            </select>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+@{
+    if (Model.View != null && Model.View.Appointments != null && Model.View.Appointments.Items != null && Model.View.Appointments.Items.Count > 0)
+    {
+        <table class="table table-bordered ">
+            <thead class="thead-gray">
+                <tr class="table-dark">
+                    <th scope="col">Name</th>
+                    <th scope="col">Symptoms</th>
+                    <th scope="col">Date </th>
+                    <th scope="col">Time</th>
+                    <th scope="col">Actions</th>
+
+
+
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    foreach (var appointment in Model?.View?.Appointments.Items)
+                    {
+                        <tr class="table-light">
+                            
+                            <td>@appointment.Patient.FirstName @appointment.Patient.LastName</td>
+                            <td>@appointment.Symptom</td>
+                            <td>@appointment.StartTime.Value.ToString("dd/MM/yyyy")</td>
+                            <td>@appointment.StartTime.Value.ToString("H:mm tt") - @appointment.EndTime.Value.ToString("H:mm tt")</td>
+
+                            <td>
+                                <a href="~/manage/apps/edit?id=@appointment.ID" class="btn btn-secondary">
+                                    <i class="fa fa-pencil">Edit</i>
+                                </a>
+                                <a href="~/manage/apps/viewappt?id=@appointment.ID " class="btn btn-danger">
+                                    <i class="fa fa-pencil">View</i>
+                                </a>
+                            </td>
+
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+       
+
+
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @{
+                    if (Model?.View?.Appointments.PageIndex > 1)
+                    {
+                        <li class="page-item"><a class="page-link" href="/manage/apps/appt?pageIndex=@(Model?.View?.Appointments.PageIndex-1)&pageSize=@(Model?.View?.Appointments.PageSize)&sortBy=@(Model?.View?.Appointments.SortBy)&sortOrder=@(Model?.View?.Appointments.SortOrder)">Previous</a></li>
+                    }
+
+                    <li class="page-item"><span class="page-link">page @Model?.View?.Appointments.PageIndex of @Model?.View?.Appointments.PageCount (@Model?.View?.Appointments.TotalRows total rows)</span></li>
+
+
+                    if (Model?.View?.Appointments.PageIndex < Model?.View?.Appointments.PageCount)
+                    {
+                        <li class="page-item"><a class="page-link" href="/manage/apps/appt?pageIndex=@(Model?.View?.Appointments.PageIndex+1)&pageSize=@(Model?.View?.Appointments.PageSize)&sortBy=@(Model?.View?.Appointments.SortBy)&sortOrder=@(Model?.View?.Appointments.SortOrder)">Next</a></li>
+                    }
+                }
+            </ul>
+        </nav>
+    }
+    else
+    {
+        <div>There are no records to show.</div>
+    }
+}
+
+
+
+@section Scripts
+    {
+    <script>
+        $("#search").keyup(function (event) {
+            if (event.keyCode === 13) {
+                window.location = "/manage/Apps/Appt?keyword=" + $("#search").val();
+            }
+        });
+
+        $("#sortBy").change(function () {
+            window.location = "/manage/Apps/Appt?keyword=@(Model.View.Appointments.Keyword)&sortBy=" + $("#sortBy").val() + "&sortOrder=" + $("#sortOrder").val();
+        });
+
+        $("#sortOrder").change(function () {
+            window.location = "/manage/Apps/appt?keyword=@(Model.View.Appointments.Keyword)&sortBy=" + $("#sortBy").val() + "&sortOrder=" + $("#sortOrder").val();
+        });
+
+    </script>
+}

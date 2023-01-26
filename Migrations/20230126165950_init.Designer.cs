@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CapstoneR2.Migrations
 {
     [DbContext(typeof(DefaultDBContext))]
-    [Migration("20230117080717_init")]
+    [Migration("20230126165950_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,9 +27,6 @@ namespace CapstoneR2.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("longtext");
-
                     b.Property<DateTime?>("EndTime")
                         .HasColumnType("datetime(6)");
 
@@ -38,6 +35,9 @@ namespace CapstoneR2.Migrations
 
                     b.Property<DateTime?>("StartTime")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Symptom")
+                        .HasColumnType("longtext");
 
                     b.HasKey("ID");
 
@@ -49,10 +49,10 @@ namespace CapstoneR2.Migrations
                         new
                         {
                             ID = new Guid("c7d431a6-579b-4841-8629-2bbcb79a5e15"),
-                            Description = " Masakit daw mata",
                             EndTime = new DateTime(2023, 2, 12, 12, 0, 0, 0, DateTimeKind.Unspecified),
                             PatientID = new Guid("8664a4bd-0ec6-4aaa-83e6-7d2bd0315b5a"),
-                            StartTime = new DateTime(2023, 2, 12, 11, 30, 0, 0, DateTimeKind.Unspecified)
+                            StartTime = new DateTime(2023, 2, 12, 11, 30, 0, 0, DateTimeKind.Unspecified),
+                            Symptom = "Dry Eyes"
                         });
                 });
 
@@ -74,9 +74,6 @@ namespace CapstoneR2.Migrations
                     b.Property<Guid?>("PatientID")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Symptoms")
-                        .HasColumnType("longtext");
-
                     b.HasKey("ID");
 
                     b.HasIndex("AppointmentID");
@@ -92,8 +89,7 @@ namespace CapstoneR2.Migrations
                             AppointmentID = new Guid("c7d431a6-579b-4841-8629-2bbcb79a5e15"),
                             DateCreated = new DateTime(2022, 1, 7, 11, 30, 0, 0, DateTimeKind.Unspecified),
                             DateUpdated = new DateTime(2022, 1, 7, 11, 30, 0, 0, DateTimeKind.Unspecified),
-                            PatientID = new Guid("8664a4bd-0ec6-4aaa-83e6-7d2bd0315b5a"),
-                            Symptoms = "test lang 123"
+                            PatientID = new Guid("8664a4bd-0ec6-4aaa-83e6-7d2bd0315b5a")
                         });
                 });
 
@@ -121,7 +117,7 @@ namespace CapstoneR2.Migrations
                     b.HasData(
                         new
                         {
-                            ID = new Guid("baa0fed5-0f51-4258-81c2-397a37b957a4"),
+                            ID = new Guid("441d8139-8042-416f-b3cd-ea0d25b9628d"),
                             ConsultationRecordID = new Guid("0c096359-c9ef-4f37-9c37-47b7bf247746"),
                             Description = "sore eyes",
                             Tags = "123"
@@ -139,9 +135,6 @@ namespace CapstoneR2.Migrations
 
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<string>("ContactNo")
-                        .HasColumnType("longtext");
 
                     b.Property<string>("FirstName")
                         .HasColumnType("longtext");
@@ -165,7 +158,6 @@ namespace CapstoneR2.Migrations
                             ID = new Guid("8664a4bd-0ec6-4aaa-83e6-7d2bd0315b5a"),
                             Address = "Dinalupihan, Orani, Bataan",
                             BirthDate = new DateTime(2023, 3, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ContactNo = "09286390110",
                             FirstName = "Raniel",
                             Gender = 1,
                             LastName = "Morales",
@@ -197,7 +189,7 @@ namespace CapstoneR2.Migrations
                     b.HasData(
                         new
                         {
-                            ID = new Guid("143a0648-4e27-485f-ae6c-e91c2dd5fc6c"),
+                            ID = new Guid("df4e8a69-63e7-42c1-895c-ca64b71d86d9"),
                             ConsultationRecordID = new Guid("0c096359-c9ef-4f37-9c37-47b7bf247746"),
                             Description = "biogesic",
                             Tags = "123"
@@ -252,9 +244,6 @@ namespace CapstoneR2.Migrations
                     b.Property<DateTime>("BirthDate")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("ContactNo")
-                        .HasColumnType("longtext");
-
                     b.Property<string>("Email")
                         .HasColumnType("longtext");
 
@@ -270,10 +259,15 @@ namespace CapstoneR2.Migrations
                     b.Property<string>("MiddleName")
                         .HasColumnType("longtext");
 
+                    b.Property<Guid?>("PatientID")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid?>("RoleID")
                         .HasColumnType("char(36)");
 
                     b.HasKey("ID");
+
+                    b.HasIndex("PatientID");
 
                     b.HasIndex("RoleID");
 
@@ -285,12 +279,12 @@ namespace CapstoneR2.Migrations
                             ID = new Guid("7e5e4f74-9902-43da-9974-4b2a08814398"),
                             Address = "Dinalupihan, Orani, Bataan",
                             BirthDate = new DateTime(2001, 1, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ContactNo = "09098700909",
                             Email = "renieldavid@yahoo.com",
                             FirstName = "Reniel",
                             Gender = 1,
                             LastName = "David",
                             MiddleName = "Adan",
+                            PatientID = new Guid("8664a4bd-0ec6-4aaa-83e6-7d2bd0315b5a"),
                             RoleID = new Guid("2afa881f-e519-4e67-a841-e4a2630e8a2a")
                         },
                         new
@@ -298,7 +292,6 @@ namespace CapstoneR2.Migrations
                             ID = new Guid("00acfb7f-6c90-459a-b53f-bf73ddac85b4"),
                             Address = "Dinalupihan, Orani , Bataan",
                             BirthDate = new DateTime(2002, 2, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ContactNo = "09098900909",
                             Email = "Janedavid@yahoo.com",
                             FirstName = "Jane",
                             Gender = 0,
@@ -333,15 +326,15 @@ namespace CapstoneR2.Migrations
                     b.HasData(
                         new
                         {
-                            ID = new Guid("56e91c7c-743f-4f9e-af5d-a318100cae0b"),
+                            ID = new Guid("117c1d19-e163-4b9b-8133-187179ca03e2"),
                             Key = "Password",
                             Type = "General",
                             UserID = new Guid("00acfb7f-6c90-459a-b53f-bf73ddac85b4"),
-                            Value = "$2a$11$wdzdnI/4ghLhG6vZuHtqwOFV71s/xm6sgRj20k9CAjvmdZPWLDOT."
+                            Value = "$2a$11$7Zgvm5lr4tHiGzVYBhBLmOMwuziDUfA/tQynKquvKtZJJp19Z2LMu"
                         },
                         new
                         {
-                            ID = new Guid("724291f5-4764-4c5f-90fe-186e9b9d763f"),
+                            ID = new Guid("c99e0070-91fa-4469-a220-d2f205629b70"),
                             Key = "IsActive",
                             Type = "General",
                             UserID = new Guid("00acfb7f-6c90-459a-b53f-bf73ddac85b4"),
@@ -349,7 +342,7 @@ namespace CapstoneR2.Migrations
                         },
                         new
                         {
-                            ID = new Guid("860d4a1b-8826-409c-8c5b-43ef1dc392eb"),
+                            ID = new Guid("0397ea8c-1989-46a7-a7f0-e68844a64cf0"),
                             Key = "LoginRetries",
                             Type = "General",
                             UserID = new Guid("00acfb7f-6c90-459a-b53f-bf73ddac85b4"),
@@ -357,15 +350,15 @@ namespace CapstoneR2.Migrations
                         },
                         new
                         {
-                            ID = new Guid("71e9c444-1b61-4397-812e-44821b8c60fa"),
+                            ID = new Guid("ea408e14-cf63-4db5-adaf-7d9b51557d1a"),
                             Key = "Password",
                             Type = "General",
                             UserID = new Guid("7e5e4f74-9902-43da-9974-4b2a08814398"),
-                            Value = "$2a$11$d5cYbvJIEODFz8Fxe8eBNu.sknQKUXnlozK1bMFTDQUNcG91N8qwq"
+                            Value = "$2a$11$E148er5gzo1tB6X7QHVoZ.Gb/H0E1Cr6p4ypbOOKVbdGZTAdsQhnK"
                         },
                         new
                         {
-                            ID = new Guid("34dfd354-5f0d-41fd-97c2-7cba64d8fa43"),
+                            ID = new Guid("695bd3eb-5e0f-4d40-97d7-063bcb7d7417"),
                             Key = "IsActive",
                             Type = "General",
                             UserID = new Guid("7e5e4f74-9902-43da-9974-4b2a08814398"),
@@ -373,7 +366,7 @@ namespace CapstoneR2.Migrations
                         },
                         new
                         {
-                            ID = new Guid("fa7d603d-e6d3-4fe1-a427-546ad57a2e26"),
+                            ID = new Guid("89d61d48-d60f-40d5-84f1-78ede1202d04"),
                             Key = "LoginRetries",
                             Type = "General",
                             UserID = new Guid("7e5e4f74-9902-43da-9974-4b2a08814398"),
@@ -404,13 +397,13 @@ namespace CapstoneR2.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("7da68b9f-4cb1-4e91-81aa-c3cd05d6d250"),
+                            Id = new Guid("c4e4c9b3-e71e-4579-8c39-81c21ee6bfd4"),
                             RoleID = new Guid("2afa881f-e519-4e67-a841-e4a2630e8a2a"),
                             UserID = new Guid("7e5e4f74-9902-43da-9974-4b2a08814398")
                         },
                         new
                         {
-                            Id = new Guid("b8de8371-d5e6-4a34-9e09-a6f733d07466"),
+                            Id = new Guid("10c3d4a7-57fa-45d9-9bfa-045b19627b17"),
                             RoleID = new Guid("54f00f70-72b8-4d34-a953-83321ff6b101"),
                             UserID = new Guid("00acfb7f-6c90-459a-b53f-bf73ddac85b4")
                         });
@@ -460,9 +453,15 @@ namespace CapstoneR2.Migrations
 
             modelBuilder.Entity("CapstoneR2.Infrastructure.Domain.Models.User", b =>
                 {
+                    b.HasOne("CapstoneR2.Infrastructure.Domain.Models.Patient", "Patient")
+                        .WithMany()
+                        .HasForeignKey("PatientID");
+
                     b.HasOne("CapstoneR2.Infrastructure.Domain.Models.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleID");
+
+                    b.Navigation("Patient");
 
                     b.Navigation("Role");
                 });

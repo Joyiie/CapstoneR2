@@ -44,7 +44,7 @@ namespace CapstoneR2.Infrastructure.Domain
                 LastName = "Morales",
                 Address = "Dinalupihan, Orani, Bataan",
                 BirthDate = DateTime.Parse("23/03/2023"),
-                ContactNo = "09286390110",
+               
                 Gender = Models.Enums.Gender.male
             });
 
@@ -54,10 +54,9 @@ namespace CapstoneR2.Infrastructure.Domain
                 PatientID = Guid.Parse("8664a4bd-0ec6-4aaa-83e6-7d2bd0315b5a"),
                 StartTime = DateTime.Parse("12-02-23 11:30"),
                 EndTime = DateTime.Parse("12-02-23 12:00"),
-                Description =" Masakit daw mata"
-                
-
+                Symptom = "Dry Eyes"
             });
+
 
             consultationRecords.Add(new ConsultationRecord()
             {
@@ -65,7 +64,7 @@ namespace CapstoneR2.Infrastructure.Domain
                 AppointmentID = Guid.Parse("c7d431a6-579b-4841-8629-2bbcb79a5e15"),
                 ID = Guid.Parse("0c096359-c9ef-4f37-9c37-47b7bf247746"),
                 DateCreated = DateTime.Parse("07-01-22 11:30"),
-                Symptoms = "test lang 123",
+           
                 DateUpdated = DateTime.Parse("07-01-22 11:30"),
             }) ;
             findings.Add(new Finding()
@@ -86,16 +85,18 @@ namespace CapstoneR2.Infrastructure.Domain
             users.Add(new User()
             {
                 ID = Guid.Parse("7e5e4f74-9902-43da-9974-4b2a08814398"),
+                PatientID = Guid.Parse("8664a4bd-0ec6-4aaa-83e6-7d2bd0315b5a"),
                 Email = "renieldavid@yahoo.com",
                 FirstName = "Reniel",
                 LastName = "David",
                 MiddleName = "Adan",
                 BirthDate = DateTime.Parse("23/01/2001"),
-                ContactNo = "09098700909",
+                
                 Gender = Models.Enums.Gender.male,
                 RoleID = Guid.Parse("2afa881f-e519-4e67-a841-e4a2630e8a2a")   
                 , Address = "Dinalupihan, Orani, Bataan"
             });
+
 
             users.Add(new User()
             {
@@ -105,7 +106,7 @@ namespace CapstoneR2.Infrastructure.Domain
                 LastName = "David",
                 MiddleName = "Adan",
                 BirthDate = DateTime.Parse("21/02/2002"),
-                ContactNo = "09098900909",
+               
                 Gender = Models.Enums.Gender.female,
                 RoleID = Guid.Parse("54f00f70-72b8-4d34-a953-83321ff6b101"),
                 Address = "Dinalupihan, Orani , Bataan"
